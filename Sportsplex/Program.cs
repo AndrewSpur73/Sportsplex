@@ -1,5 +1,7 @@
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Http.Json;
 
-namespace VenueVault
+namespace Sportsplex
 {
     public class Program
     {
@@ -13,8 +15,31 @@ namespace VenueVault
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.WithOrigins("http://localhost:3000", "https://localhost:8000")
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .AllowAnyHeader();
+                });
+            });
+
+            // allows passing datetimes without time zone data 
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+            // allows our api endpoints to access the database through Entity Framework Core
+            builder.Services.AddNpgsql<SportsplexDbContext>(builder.Configuration["SportsplexDbConnectionString"]);
+
+            builder.Services.Configure<JsonOptions>(options =>
+            {
+                options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
 
             var app = builder.Build();
+
+            app.UseCors();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -24,28 +49,6 @@ namespace VenueVault
             }
 
             app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-            var summaries = new[]
-            {
-                "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-            };
-
-            app.MapGet("/weatherforecast", (HttpContext httpContext) =>
-            {
-                var forecast = Enumerable.Range(1, 5).Select(index =>
-                    new WeatherForecast
-                    {
-                        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                        TemperatureC = Random.Shared.Next(-20, 55),
-                        Summary = summaries[Random.Shared.Next(summaries.Length)]
-                    })
-                    .ToArray();
-                return forecast;
-            })
-            .WithName("GetWeatherForecast")
-            .WithOpenApi();
 
             app.Run();
         }
