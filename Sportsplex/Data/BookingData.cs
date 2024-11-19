@@ -2,7 +2,7 @@ using Sportsplex.Models;
 
 namespace Sportsplex.Data
 {
-    public class ShowData
+    public class BookingData
     {
 
         public static List<Booking> Bookings =
