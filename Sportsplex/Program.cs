@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http.Json;
+using Sportsplex.API;
 
 namespace Sportsplex
 {
@@ -49,6 +50,12 @@ namespace Sportsplex
             }
 
             app.UseHttpsRedirection();
+
+            UserAPI.Map(app);
+            BookingAPI.Map(app);
+            CategoryAPI.Map(app);
+            CommentAPI.Map(app);
+            LocationAPI.Map(app);
 
             app.Run();
         }

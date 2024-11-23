@@ -13,8 +13,7 @@ namespace Sportsplex.Models
         public Category? Category { get; set; }
         public int LocationId { get; set; }
         public Location? Location { get; set; }
-        public int CommentId { get; set; }
-        public Comment? Comment { get; set; }
+        public List<Comment>? Comments { get; set; }
         public List<User>? Booker { get; set; }
         public User? Owner { get; set; }
 

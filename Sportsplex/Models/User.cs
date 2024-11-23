@@ -9,5 +9,6 @@ namespace Sportsplex.Models
         public string? Image { get; set; }
         public List<Booking>? VenueBooker { get; set; }
         public List<Booking>? VenueOwner { get; set; }
+        public List<Comment>? Comment { get; set; }
     }
 }

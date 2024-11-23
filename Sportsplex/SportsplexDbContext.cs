@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Sportsplex.Data;
 using Sportsplex.Models;
 
@@ -35,6 +36,13 @@ namespace Sportsplex
                 .WithMany(u => u.VenueOwner)
                 .HasForeignKey(b => b.OwnerId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            //relationship between Booking and Comments, When a Booking is deleted any related Comments will be deleted as well. 
+            modelBuilder.Entity<Booking>()
+                .HasMany(b => b.Comments)
+                .WithOne(c => c.Booking)
+                .HasForeignKey(c => c.BookingId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

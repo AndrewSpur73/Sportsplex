@@ -12,7 +12,7 @@ using Sportsplex;
 namespace Sportsplex.Migrations
 {
     [DbContext(typeof(SportsplexDbContext))]
-    [Migration("20241119020806_InitialCreate")]
+    [Migration("20241123164905_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,9 +50,6 @@ namespace Sportsplex.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("CommentId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -78,8 +75,6 @@ namespace Sportsplex.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("CommentId");
-
                     b.HasIndex("LocationId");
 
                     b.HasIndex("OwnerId");
@@ -91,7 +86,6 @@ namespace Sportsplex.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CommentId = 1,
                             Description = "Looking for a well-maintained baseball field for your team’s practice, friendly matches, or community events? Our well-maintained baseball field is just the right size for youth teams, recreational leagues, or small group games.",
                             Image = "https://mainstreetmediatn.com/wp-content/uploads/images/2020-08-03/dd4fab6c064324561e49e8a44eaa6afc.jpg",
                             LocationId = 1,
@@ -104,7 +98,6 @@ namespace Sportsplex.Migrations
                         {
                             Id = 2,
                             CategoryId = 2,
-                            CommentId = 2,
                             Description = "Need a soccer field for your team’s practice sessions, friendly matches, or local events? Our soccer field is ideal for youth teams, recreational leagues, or casual play with friends.",
                             Image = "https://themotzgroup.com/wp-content/webpc-passthru.php?src=https://themotzgroup.com/wp-content/uploads/2022/08/Russell-Creek-Park-Complete-5.2-7.jpg&nocache=1",
                             LocationId = 1,
@@ -117,7 +110,6 @@ namespace Sportsplex.Migrations
                         {
                             Id = 3,
                             CategoryId = 3,
-                            CommentId = 3,
                             Description = "Make a splash with our pool rental! Whether you're planning a private party, hosting swim lessons, or just looking for a refreshing way to spend the day, our clean and well-maintained pool is ready for you.",
                             Image = "https://swimswam.com/wp-content/uploads/2017/05/Stock-RCC-pool-4.jpg",
                             LocationId = 3,
@@ -130,7 +122,6 @@ namespace Sportsplex.Migrations
                         {
                             Id = 4,
                             CategoryId = 4,
-                            CommentId = 4,
                             Description = "Get your team together and hit the gridiron with our football field rental. Whether it’s practice, a scrimmage, or a community event, our well-kept field is ready for action.",
                             Image = "https://www.sunshineofficials.com/wp-content/uploads/2017/06/youth-field.jpg",
                             LocationId = 3,
@@ -143,7 +134,6 @@ namespace Sportsplex.Migrations
                         {
                             Id = 5,
                             CategoryId = 5,
-                            CommentId = 5,
                             Description = "Our basketball court rental is perfect for players of all skill levels. Whether you're running drills, organizing a pickup game, or hosting a small tournament, this court provides a professional and comfortable space for play.",
                             Image = "https://d2rzw8waxoxhv2.cloudfront.net/facilities/large/1ce7836979045d923802/1650980224494-333-243.jpeg",
                             LocationId = 4,
@@ -205,10 +195,23 @@ namespace Sportsplex.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("BookingId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
 
@@ -216,26 +219,36 @@ namespace Sportsplex.Migrations
                         new
                         {
                             Id = 1,
+                            AuthorId = 1,
+                            BookingId = 1,
                             Content = "I love Baseball"
                         },
                         new
                         {
                             Id = 2,
+                            AuthorId = 1,
+                            BookingId = 2,
                             Content = "I love Soccer"
                         },
                         new
                         {
                             Id = 3,
+                            AuthorId = 2,
+                            BookingId = 3,
                             Content = "I love Swimming"
                         },
                         new
                         {
                             Id = 4,
+                            AuthorId = 3,
+                            BookingId = 4,
                             Content = "I love Football"
                         },
                         new
                         {
                             Id = 5,
+                            AuthorId = 2,
+                            BookingId = 5,
                             Content = "I love Basketball"
                         });
                 });
@@ -357,12 +370,6 @@ namespace Sportsplex.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Sportsplex.Models.Comment", "Comment")
-                        .WithMany("Booking")
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Sportsplex.Models.Location", "Location")
                         .WithMany("Booking")
                         .HasForeignKey("LocationId")
@@ -377,19 +384,34 @@ namespace Sportsplex.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("Comment");
-
                     b.Navigation("Location");
 
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Sportsplex.Models.Category", b =>
+            modelBuilder.Entity("Sportsplex.Models.Comment", b =>
                 {
+                    b.HasOne("Sportsplex.Models.Booking", "Booking")
+                        .WithMany("Comments")
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Sportsplex.Models.User", "User")
+                        .WithMany("Comment")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Booking");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Sportsplex.Models.Comment", b =>
+            modelBuilder.Entity("Sportsplex.Models.Booking", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("Sportsplex.Models.Category", b =>
                 {
                     b.Navigation("Booking");
                 });
@@ -401,6 +423,8 @@ namespace Sportsplex.Migrations
 
             modelBuilder.Entity("Sportsplex.Models.User", b =>
                 {
+                    b.Navigation("Comment");
+
                     b.Navigation("VenueOwner");
                 });
 #pragma warning restore 612, 618
