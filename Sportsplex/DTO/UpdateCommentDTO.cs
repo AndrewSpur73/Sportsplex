@@ -1,6 +1,6 @@
 ﻿namespace Sportsplex.DTO
 {
-    public class EditCommentDTO
+    public class UpdateCommentDTO
     {
         public string? Content { get; set; }
     }
