@@ -56,8 +56,6 @@ dotnet watch run
 ```
 
 <h2 id="routes">📍 API Endpoints</h2>
-
-Here you can list the main routes of your API, and what are their expected request bodies.
 ​
 | user          | description                                          
 |----------------------|-----------------------------------------------------
