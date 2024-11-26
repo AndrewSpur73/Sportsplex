@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-    <b>The SportsplexAPI allows users to retrieve, create, update, and delete bookings, locations, Comments, and categories. It is designed to facilitate interactions with users, their RSVP'd bookings, and the categories of the bookingss in an organized and user-friendly way.</b>
+    <b>The SportsplexAPI allows users to retrieve, create, update, and delete bookings, locations, comments, and categories. It is designed to facilitate interactions with users, their RSVP'd bookings, and the categories of the bookingss in an organized and user-friendly way.</b>
 </p>
 
 <h2 id="technologies">💻 Technologies</h2>
