@@ -57,6 +57,7 @@ dotnet watch run
 
 <h2 id="routes">📍 API Endpoints</h2>
 ​
+
 | user          | description                                          
 |----------------------|-----------------------------------------------------
 | <kbd>GET Login</kbd> |	Retrieves login information
