@@ -69,7 +69,8 @@ namespace Sportsplex.API
                 {
                     OwnerId = bookingDTO.OwnerId,
                     Image = bookingDTO.Image,
-                    Name = bookingDTO.Name,
+                    Facility = bookingDTO.Facility,
+                    SportSpace = bookingDTO.SportSpace,
                     Description = bookingDTO.Description,
                     Rsvps = bookingDTO.Rsvps,
                     ReservedDate = bookingDTO.ReservedDate,
@@ -102,7 +103,8 @@ namespace Sportsplex.API
                 }
 
                 bookingToUpdate.Image = bookingDTO.Image;
-                bookingToUpdate.Name = bookingDTO.Name;
+                bookingToUpdate.Facility = bookingDTO.Facility;
+                bookingToUpdate.SportSpace = bookingDTO.SportSpace;
                 bookingToUpdate.Description = bookingDTO.Description;
                 bookingToUpdate.ReservedDate = bookingDTO.ReservedDate;
                 bookingToUpdate.CategoryId = bookingDTO.CategoryId;
