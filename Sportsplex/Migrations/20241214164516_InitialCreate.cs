@@ -60,7 +60,8 @@ namespace Sportsplex.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     OwnerId = table.Column<int>(type: "integer", nullable: false),
                     Image = table.Column<string>(type: "text", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: true),
+                    Facility = table.Column<string>(type: "text", nullable: true),
+                    SportSpace = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Rsvps = table.Column<int>(type: "integer", nullable: false),
                     ReservedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
@@ -177,14 +178,14 @@ namespace Sportsplex.Migrations
 
             migrationBuilder.InsertData(
                 table: "Bookings",
-                columns: new[] { "Id", "CategoryId", "Description", "Image", "LocationId", "Name", "OwnerId", "ReservedDate", "Rsvps" },
+                columns: new[] { "Id", "CategoryId", "Description", "Facility", "Image", "LocationId", "OwnerId", "ReservedDate", "Rsvps", "SportSpace" },
                 values: new object[,]
                 {
-                    { 1, 1, "Looking for a well-maintained baseball field for your team’s practice, friendly matches, or community events? Our well-maintained baseball field is just the right size for youth teams, recreational leagues, or small group games.", "https://mainstreetmediatn.com/wp-content/uploads/images/2020-08-03/dd4fab6c064324561e49e8a44eaa6afc.jpg", 1, "Drakes Creek Park, Baseball Field 1", 1, new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 120 },
-                    { 2, 2, "Need a soccer field for your team’s practice sessions, friendly matches, or local events? Our soccer field is ideal for youth teams, recreational leagues, or casual play with friends.", "https://themotzgroup.com/wp-content/webpc-passthru.php?src=https://themotzgroup.com/wp-content/uploads/2022/08/Russell-Creek-Park-Complete-5.2-7.jpg&nocache=1", 1, "Drakes Creek Park, Soccer Field 1", 1, new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 120 },
-                    { 3, 3, "Make a splash with our pool rental! Whether you're planning a private party, hosting swim lessons, or just looking for a refreshing way to spend the day, our clean and well-maintained pool is ready for you.", "https://swimswam.com/wp-content/uploads/2017/05/Stock-RCC-pool-4.jpg", 3, "Nashville Pool, Pool 1", 1, new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 120 },
-                    { 4, 4, "Get your team together and hit the gridiron with our football field rental. Whether it’s practice, a scrimmage, or a community event, our well-kept field is ready for action.", "https://www.sunshineofficials.com/wp-content/uploads/2017/06/youth-field.jpg", 3, "Gallatin Football Complex", 2, new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 120 },
-                    { 5, 5, "Our basketball court rental is perfect for players of all skill levels. Whether you're running drills, organizing a pickup game, or hosting a small tournament, this court provides a professional and comfortable space for play.", "https://d2rzw8waxoxhv2.cloudfront.net/facilities/large/1ce7836979045d923802/1650980224494-333-243.jpeg", 4, "Portland Park, Basketball Court 1", 2, new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 120 }
+                    { 1, 1, "Looking for a well-maintained baseball field for your team’s practice, friendly matches, or community events? Our well-maintained baseball field is just the right size for youth teams, recreational leagues, or small group games.", "Drakes Creek Park", "https://mainstreetmediatn.com/wp-content/uploads/images/2020-08-03/dd4fab6c064324561e49e8a44eaa6afc.jpg", 1, 1, new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 120, "Baseball Field 1" },
+                    { 2, 2, "Need a soccer field for your team’s practice sessions, friendly matches, or local events? Our soccer field is ideal for youth teams, recreational leagues, or casual play with friends.", "Drakes Creek Park", "https://themotzgroup.com/wp-content/webpc-passthru.php?src=https://themotzgroup.com/wp-content/uploads/2022/08/Russell-Creek-Park-Complete-5.2-7.jpg&nocache=1", 1, 1, new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 120, "Soccer Field 1" },
+                    { 3, 3, "Make a splash with our pool rental! Whether you're planning a private party, hosting swim lessons, or just looking for a refreshing way to spend the day, our clean and well-maintained pool is ready for you.", "Nashville Pool", "https://swimswam.com/wp-content/uploads/2017/05/Stock-RCC-pool-4.jpg", 3, 1, new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 120, "Pool 1" },
+                    { 4, 4, "Get your team together and hit the gridiron with our football field rental. Whether it’s practice, a scrimmage, or a community event, our well-kept field is ready for action.", "Gallatin Football Complex", "https://www.sunshineofficials.com/wp-content/uploads/2017/06/youth-field.jpg", 3, 2, new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 120, "Field 3" },
+                    { 5, 5, "Our basketball court rental is perfect for players of all skill levels. Whether you're running drills, organizing a pickup game, or hosting a small tournament, this court provides a professional and comfortable space for play.", "Portland Park", "https://d2rzw8waxoxhv2.cloudfront.net/facilities/large/1ce7836979045d923802/1650980224494-333-243.jpeg", 4, 2, new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 120, "Basketball Court 1" }
                 });
 
             migrationBuilder.InsertData(
