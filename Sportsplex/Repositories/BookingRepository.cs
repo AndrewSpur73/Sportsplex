@@ -41,7 +41,8 @@ namespace Sportsplex.Repositories
             {
                 OwnerId = BookingDTO.OwnerId,
                 Image = BookingDTO.Image,
-                Name = BookingDTO.Name,
+                Facility = BookingDTO.Facility,
+                SportSpace = BookingDTO.SportSpace,
                 Description = BookingDTO.Description,
                 Rsvps = BookingDTO.Rsvps,
                 ReservedDate = BookingDTO.ReservedDate,
@@ -74,7 +75,8 @@ namespace Sportsplex.Repositories
             }
 
             BookingToUpdate.Image = BookingDTO.Image;
-            BookingToUpdate.Name = BookingDTO.Name;
+            BookingToUpdate.Facility = BookingDTO.Facility;
+            BookingToUpdate.SportSpace = BookingDTO.SportSpace;
             BookingToUpdate.Description = BookingDTO.Description;
             BookingToUpdate.ReservedDate = BookingDTO.ReservedDate;
             BookingToUpdate.CategoryId = BookingDTO.CategoryId;

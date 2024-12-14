@@ -12,7 +12,7 @@ using Sportsplex;
 namespace Sportsplex.Migrations
 {
     [DbContext(typeof(SportsplexDbContext))]
-    [Migration("20241210043343_InitialCreate")]
+    [Migration("20241214162936_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -373,7 +373,7 @@ namespace Sportsplex.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Sportsplex.Models.User", "Owner")
+                    b.HasOne("Sportsplex.Models.User", "User")
                         .WithMany("VenueOwner")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -383,7 +383,7 @@ namespace Sportsplex.Migrations
 
                     b.Navigation("Location");
 
-                    b.Navigation("Owner");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Sportsplex.Models.Comment", b =>

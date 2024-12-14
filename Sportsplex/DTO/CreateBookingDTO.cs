@@ -4,7 +4,8 @@
     {
         public int OwnerId { get; set; }
         public string? Image { get; set; }
-        public string? Name { get; set; }
+        public string? Facility { get; set; }
+        public string? SportSpace { get; set; }
         public string? Description { get; set; }
         public int Rsvps { get; set; } = 0;
         public DateTime ReservedDate { get; set; }

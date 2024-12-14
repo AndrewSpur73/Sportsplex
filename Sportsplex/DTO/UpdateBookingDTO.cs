@@ -3,7 +3,8 @@
     public class UpdateBookingDTO
     {
         public string? Image { get; set; }
-        public string? Name { get; set; }
+        public string? Facility { get; set; }
+        public string? SportSpace { get; set; }
         public string? Description { get; set; }
         public DateTime ReservedDate { get; set; }
         public int CategoryId { get; set; }

@@ -371,7 +371,7 @@ namespace Sportsplex.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Sportsplex.Models.User", "Owner")
+                    b.HasOne("Sportsplex.Models.User", "User")
                         .WithMany("VenueOwner")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -381,7 +381,7 @@ namespace Sportsplex.Migrations
 
                     b.Navigation("Location");
 
-                    b.Navigation("Owner");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Sportsplex.Models.Comment", b =>
