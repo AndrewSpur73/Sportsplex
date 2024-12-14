@@ -15,7 +15,7 @@ namespace Sportsplex.Models
         public Location? Location { get; set; }
         public List<Comment>? Comments { get; set; }
         public List<User>? Booker { get; set; }
-        public User? Owner { get; set; }
+        public User? User { get; set; }
 
         public string ReservedDateFormatted => ReservedDate.ToString("yyyy-MM-dd");
     }

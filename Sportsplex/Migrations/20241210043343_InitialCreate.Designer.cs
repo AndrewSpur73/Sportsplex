@@ -12,7 +12,7 @@ using Sportsplex;
 namespace Sportsplex.Migrations
 {
     [DbContext(typeof(SportsplexDbContext))]
-    [Migration("20241123164905_InitialCreate")]
+    [Migration("20241210043343_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -195,16 +195,13 @@ namespace Sportsplex.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("BookingId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -219,37 +216,37 @@ namespace Sportsplex.Migrations
                         new
                         {
                             Id = 1,
-                            AuthorId = 1,
                             BookingId = 1,
-                            Content = "I love Baseball"
+                            Content = "I love Baseball",
+                            UserId = 1
                         },
                         new
                         {
                             Id = 2,
-                            AuthorId = 1,
                             BookingId = 2,
-                            Content = "I love Soccer"
+                            Content = "I love Soccer",
+                            UserId = 1
                         },
                         new
                         {
                             Id = 3,
-                            AuthorId = 2,
                             BookingId = 3,
-                            Content = "I love Swimming"
+                            Content = "I love Swimming",
+                            UserId = 2
                         },
                         new
                         {
                             Id = 4,
-                            AuthorId = 3,
                             BookingId = 4,
-                            Content = "I love Football"
+                            Content = "I love Football",
+                            UserId = 3
                         },
                         new
                         {
                             Id = 5,
-                            AuthorId = 2,
                             BookingId = 5,
-                            Content = "I love Basketball"
+                            Content = "I love Basketball",
+                            UserId = 2
                         });
                 });
 
@@ -399,7 +396,9 @@ namespace Sportsplex.Migrations
 
                     b.HasOne("Sportsplex.Models.User", "User")
                         .WithMany("Comment")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Booking");
 

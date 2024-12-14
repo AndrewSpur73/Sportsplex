@@ -32,7 +32,7 @@ namespace Sportsplex
                 .UsingEntity(t => t.ToTable("UserBooking"));
 
             modelBuilder.Entity<Booking>()
-                .HasOne(b => b.Owner)
+                .HasOne(b => b.User)
                 .WithMany(u => u.VenueOwner)
                 .HasForeignKey(b => b.OwnerId)
                 .OnDelete(DeleteBehavior.Restrict);
