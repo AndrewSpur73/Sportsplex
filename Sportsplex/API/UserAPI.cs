@@ -81,6 +81,12 @@ namespace Sportsplex.API
                 db.SaveChanges();
                 return Results.Ok("User deleted");
             });
+
+            //Users
+            app.MapGet("/users", (SportsplexDbContext db) =>
+            {
+                return db.Users.ToList();
+            });
         }
     }
 }

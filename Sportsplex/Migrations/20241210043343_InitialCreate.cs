@@ -96,10 +96,9 @@ namespace Sportsplex.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    AuthorId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
                     BookingId = table.Column<int>(type: "integer", nullable: false),
-                    Content = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<int>(type: "integer", nullable: true)
+                    Content = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -114,7 +113,8 @@ namespace Sportsplex.Migrations
                         name: "FK_Comments_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -189,14 +189,14 @@ namespace Sportsplex.Migrations
 
             migrationBuilder.InsertData(
                 table: "Comments",
-                columns: new[] { "Id", "AuthorId", "BookingId", "Content", "UserId" },
+                columns: new[] { "Id", "BookingId", "Content", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, "I love Baseball", null },
-                    { 2, 1, 2, "I love Soccer", null },
-                    { 3, 2, 3, "I love Swimming", null },
-                    { 4, 3, 4, "I love Football", null },
-                    { 5, 2, 5, "I love Basketball", null }
+                    { 1, 1, "I love Baseball", 1 },
+                    { 2, 2, "I love Soccer", 1 },
+                    { 3, 3, "I love Swimming", 2 },
+                    { 4, 4, "I love Football", 3 },
+                    { 5, 5, "I love Basketball", 2 }
                 });
 
             migrationBuilder.CreateIndex(

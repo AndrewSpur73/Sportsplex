@@ -47,10 +47,11 @@ namespace Sportsplex.API
             {
 
                 var singleBooking = await db.Bookings
-                .Include(b => b.Owner)
+                .Include(b => b.User)
                 .Include(b => b.Category)
                 .Include(b => b.Location)
                 .Include(b => b.Comments)
+                .ThenInclude(c => c.User)
                 .FirstOrDefaultAsync(b => b.Id == id);
 
                 if (singleBooking == null)

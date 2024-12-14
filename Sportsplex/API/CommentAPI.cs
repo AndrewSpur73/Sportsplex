@@ -8,10 +8,10 @@ namespace Sportsplex.API
     {
         public static void Map(WebApplication app)
         {
-            //Get all of a Post's comments
+            //Get all of a Booking's comments
             app.MapGet("/comments/bookings/{id}", async (SportsplexDbContext db, int id) =>
             {
-                var comments = await db.Comments.Where(c => c.BookingId == id).Include(c => c.User).ToListAsync();
+                var comments = await db.Comments.Include(c => c.User).Where(c => c.BookingId == id).ToListAsync();
 
                 if (comments == null)
                 {
@@ -28,7 +28,7 @@ namespace Sportsplex.API
                 var newComment = new Comment
                 {
                     Content = newCommentDTO.Content,
-                    AuthorId = newCommentDTO.AuthorId,
+                    UserId = newCommentDTO.UserId,
                     BookingId = newCommentDTO.BookingId,
                 };
 
