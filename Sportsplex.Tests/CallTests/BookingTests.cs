@@ -18,21 +18,23 @@ namespace Sportsplex.Tests.CallTests
             _BookingService = new BookingService(_mockBookingRepository.Object);
         }
 
-
         [Fact]
         public async Task GetBookingsAsync_WhenCalled_ReturnBookingsAsync()
         {
+            // Arrange: Set up mock data and repository behavior
             var Bookings = new List<Booking>
-            {
-                new Booking {Id = 1 },
-                new Booking {Id = 2 },
-                new Booking {Id = 3 }
-            };
+    {
+        new Booking {Id = 1 },
+        new Booking {Id = 2 },
+        new Booking {Id = 3 }
+    };
 
             _mockBookingRepository.Setup(x => x.GetAllBookingsAsync()).ReturnsAsync(Bookings);
 
+            // Act: Call the service method
             var result = await _BookingService.GetAllBookingsAsync();
 
+            // Assert: Verify the result
             Assert.NotNull(result);
             Assert.Equal(3, result.Count);
         }
@@ -40,17 +42,15 @@ namespace Sportsplex.Tests.CallTests
         [Fact]
         public async Task CreateBookingAsync_WhenCalled_ReturnNewBookingAsync()
         {
-
+            // Arrange: Set up DTO, expected entity, and repository behavior
             var BookingDTO = new CreateBookingDTO
             {
-
                 OwnerId = 1,
                 Image = "string",
                 Description = "more string",
                 Rsvps = 7,
                 ReservedDate = DateTime.Now,
                 CategoryId = 2
-
             };
 
             var Booking = new Booking
@@ -61,13 +61,14 @@ namespace Sportsplex.Tests.CallTests
                 Rsvps = BookingDTO.Rsvps,
                 ReservedDate = BookingDTO.ReservedDate,
                 CategoryId = BookingDTO.CategoryId,
-
             };
 
             _mockBookingRepository.Setup(x => x.CreateBookingAsync(BookingDTO)).ReturnsAsync(Booking);
 
+            // Act: Call the service method
             var result = await _BookingService.CreateBookingAsync(BookingDTO);
 
+            // Assert: Verify the result
             Assert.NotNull(result);
             Assert.Equal(BookingDTO.OwnerId, result.OwnerId);
             Assert.Equal(BookingDTO.Image, result.Image);
@@ -75,13 +76,12 @@ namespace Sportsplex.Tests.CallTests
             Assert.Equal(BookingDTO.Rsvps, result.Rsvps);
             Assert.Equal(BookingDTO.ReservedDate, result.ReservedDate);
             Assert.Equal(BookingDTO.CategoryId, result.CategoryId);
-
         }
 
         [Fact]
         public async Task UpdateBookingAsync_WhenCalled_ReturnUpdateBookingAsync()
         {
-
+            // Arrange: Set up the ID, original entity, DTO, updated entity, and repository behavior
             int Bookingid = 1;
 
             var Booking = new Booking
@@ -113,21 +113,21 @@ namespace Sportsplex.Tests.CallTests
             _mockBookingRepository.Setup(x => x.GetBookingByIdAsync(Bookingid)).ReturnsAsync(Booking);
             _mockBookingRepository.Setup(x => x.UpdateBookingAsync(Bookingid, editBookingDTO)).ReturnsAsync(updatedBooking);
 
+            // Act: Call the service method
             var result = await _BookingService.UpdateBookingAsync(Bookingid, editBookingDTO);
 
+            // Assert: Verify the result
             Assert.NotNull(result);
             Assert.Equal(editBookingDTO.Image, result.Image);
             Assert.Equal(editBookingDTO.Description, result.Description);
             Assert.Equal(editBookingDTO.ReservedDate, result.ReservedDate);
             Assert.Equal(editBookingDTO.CategoryId, result.CategoryId);
-
-
         }
 
         [Fact]
         public async Task DeleteBookingAsync_WhenCalled_ReturnDeletedBookingAsync()
         {
-
+            // Arrange: Set up the ID, entity, and repository behavior
             int BookingId = 1;
 
             var Booking = new Booking
@@ -137,17 +137,18 @@ namespace Sportsplex.Tests.CallTests
 
             _mockBookingRepository.Setup(x => x.GetBookingByIdAsync(BookingId)).ReturnsAsync(Booking);
 
+            // Act: Call the service method
             await _BookingService.DeleteBookingAsync(BookingId);
 
+            // Assert: Verify the deletion
             _mockBookingRepository.Verify(x => x.DeleteBookingAsync(BookingId), Times.Once);
-
             _mockBookingRepository.Setup(x => x.GetBookingByIdAsync(BookingId)).ReturnsAsync((Booking)null);
-
         }
 
         [Fact]
         public async Task GetSingleBookingAsync_WhenCalled_ReturnsBooking()
         {
+            // Arrange: Set up the ID, entity, and repository behavior
             int BookingId = 1;
             var Booking = new Booking
             {
@@ -160,13 +161,12 @@ namespace Sportsplex.Tests.CallTests
                 CategoryId = 2
             };
 
-            // Setup the repository to return the expected Booking when requested
             _mockBookingRepository.Setup(x => x.GetBookingByIdAsync(BookingId)).ReturnsAsync(Booking);
 
-            // Act
+            // Act: Call the service method
             var result = await _BookingService.GetBookingByIdAsync(BookingId);
 
-            // Assert
+            // Assert: Verify the result
             Assert.NotNull(result);
             Assert.Equal(Booking.Id, result.Id);
             Assert.Equal(Booking.Description, result.Description);
